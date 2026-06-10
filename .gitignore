@@ -2,11 +2,15 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyo
 *.so
 .Python
 *.egg-info/
+.eggs/
 dist/
 build/
+.mypy_cache/
+.pytest_cache/
 
 # Virtual environments
 venv/
