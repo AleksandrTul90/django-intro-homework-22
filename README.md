@@ -4,13 +4,15 @@
 
 ## Описание
 
-Базовая структура интернет-магазина на Django: главная страница каталога и страница контактов с формой обратной связи. Функциональность будет расширяться на следующих уроках курса.
+Базовая структура интернет-магазина на Django: главная страница каталога и страница контактов с формой обратной связи. Проект использует PostgreSQL, модели `Category` и `Product`, админ-панель, фикстуры и кастомную команду загрузки данных.
 
 ## Технологии
 
 - Python 3
 - Django 6
+- PostgreSQL
 - Bootstrap 5
+- Pillow, ipython, python-dotenv
 
 ## Установка и запуск
 
@@ -37,32 +39,60 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Примените миграции:
+4. Создайте базу данных PostgreSQL в pgAdmin (например, `catalog_db`).
+
+5. Скопируйте шаблон переменных окружения и укажите параметры подключения к БД:
+
+```bash
+copy .env.example .env
+```
+
+6. Примените миграции:
 
 ```bash
 python manage.py migrate
 ```
 
-5. Запустите сервер разработки:
+7. Создайте суперпользователя:
+
+```bash
+python manage.py createsuperuser
+```
+
+8. Загрузите тестовые данные (опционально):
+
+```bash
+python manage.py load_catalog_data
+```
+
+9. Запустите сервер разработки:
 
 ```bash
 python manage.py runserver
 ```
 
-6. Откройте в браузере:
+10. Откройте в браузере:
 
 - Главная страница: http://127.0.0.1:8000/
 - Контакты: http://127.0.0.1:8000/contacts/
+- Админ-панель: http://127.0.0.1:8000/admin/
 
 ## Структура проекта
 
 ```
 .
-├── catalog/              # Приложение каталога
-│   ├── templates/        # HTML-шаблоны
-│   ├── urls.py           # Маршруты приложения
-│   └── views.py          # Контроллеры
-├── config/               # Настройки Django-проекта
+├── catalog/                    # Приложение каталога
+│   ├── fixtures/               # Фикстуры категорий и продуктов
+│   ├── management/commands/    # Кастомные команды
+│   ├── migrations/             # Миграции БД
+│   ├── templates/              # HTML-шаблоны
+│   ├── admin.py                # Настройки админки
+│   ├── models.py               # Модели Category и Product
+│   ├── urls.py
+│   └── views.py
+├── config/                     # Настройки Django-проекта
+├── screenshots/                # Скриншоты Django shell (задание 5)
+├── .env.example                # Шаблон переменных окружения
 ├── manage.py
 ├── requirements.txt
 └── README.md
