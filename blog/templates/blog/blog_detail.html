@@ -1,0 +1,37 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}{{ blog.title }} — Блог{% endblock %}
+
+{% block content %}
+<nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="{% url 'blog:blog_list' %}">Блог</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ blog.title }}</li>
+    </ol>
+</nav>
+
+<div class="row g-4">
+    <div class="col-md-5">
+        {% if blog.preview %}
+            <img src="{{ blog.preview.url }}" class="img-fluid rounded shadow" alt="{{ blog.title }}">
+        {% else %}
+            <div class="bg-light rounded shadow d-flex align-items-center justify-content-center text-muted"
+                 style="height: 320px;">
+                Нет изображения
+            </div>
+        {% endif %}
+    </div>
+    <div class="col-md-7">
+        <h1 class="mb-3">{{ blog.title }}</h1>
+        <p class="text-muted mb-4">
+            {{ blog.created_at|date:"d.m.Y H:i" }} · {{ blog.views_count }} просмотров
+        </p>
+        <div class="lead">{{ blog.content|linebreaks }}</div>
+        <div class="mt-4 d-flex gap-2">
+            <a href="{% url 'blog:blog_update' blog.pk %}" class="btn btn-outline-primary">Редактировать</a>
+            <a href="{% url 'blog:blog_delete' blog.pk %}" class="btn btn-outline-danger">Удалить</a>
+            <a href="{% url 'blog:blog_list' %}" class="btn btn-outline-secondary">← К списку статей</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
