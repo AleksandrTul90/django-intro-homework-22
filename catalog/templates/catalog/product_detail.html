@@ -27,7 +27,11 @@
         <p class="display-6 text-primary fw-bold mb-4">{{ product.price }} ₽</p>
         <h2 class="h5">Описание</h2>
         <p class="lead">{{ product.description }}</p>
-        <a href="{% url 'catalog:home' %}" class="btn btn-outline-primary mt-3">← Вернуться к каталогу</a>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+            <a href="{% url 'catalog:home' %}" class="btn btn-outline-primary">← Вернуться к каталогу</a>
+            <a href="{% url 'catalog:product_update' product.pk %}" class="btn btn-warning">Редактировать</a>
+            <a href="{% url 'catalog:product_delete' product.pk %}" class="btn btn-danger">Удалить</a>
+        </div>
     </div>
 </div>
 {% endblock %}
