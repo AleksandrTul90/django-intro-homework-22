@@ -1,0 +1,46 @@
+{% extends 'catalog/base.html' %}
+
+{% block title %}Контакты — Интернет-магазин{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Контакты</h1>
+
+<div class="row g-5">
+    <div class="col-md-6">
+        <h2 class="h4 mb-3">Свяжитесь с нами</h2>
+        <ul class="list-unstyled">
+            <li class="mb-2"><strong>Телефон:</strong> +7 (999) 123-45-67</li>
+            <li class="mb-2"><strong>Email:</strong> info@shop.example.com</li>
+            <li class="mb-2"><strong>Адрес:</strong> г. Москва, ул. Примерная, д. 1</li>
+            <li class="mb-2"><strong>Режим работы:</strong> Пн–Пт, 9:00–18:00</li>
+        </ul>
+    </div>
+
+    <div class="col-md-6">
+        <h2 class="h4 mb-3">Форма обратной связи</h2>
+
+        {% if success_message %}
+            <div class="alert alert-success" role="alert">
+                {{ success_message }}
+            </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'catalog:contacts' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="name" class="form-label">Имя</label>
+                <input type="text" class="form-control" id="name" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label for="phone" class="form-label">Телефон</label>
+                <input type="tel" class="form-control" id="phone" name="phone" required>
+            </div>
+            <div class="mb-3">
+                <label for="message" class="form-label">Сообщение</label>
+                <textarea class="form-control" id="message" name="message" rows="4" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
